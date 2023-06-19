@@ -44,7 +44,6 @@ public class Player : MonoBehaviour
     {
         move();
         attack();
-        canAttack();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -61,7 +60,7 @@ public class Player : MonoBehaviour
         {
             Door.Instance.M_RightDoor = true;
         }
-        else if (collision.tag == "UPDoor")
+        else if (collision.tag == "UpDoor")
         {
             Door.Instance.M_UpDoor = true;
         }
@@ -81,7 +80,7 @@ public class Player : MonoBehaviour
         {
             Door.Instance.M_RightDoor = false;
         }
-        else if (collision.tag == "UPDoor")
+        else if (collision.tag == "UpDoor")
         {
             Door.Instance.M_UpDoor = false;
         }
@@ -183,10 +182,4 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void canAttack()
-    {
-        
-
-
-    }
 }

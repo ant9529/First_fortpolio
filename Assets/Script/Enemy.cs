@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
 
             m_Hp -= Player.Instance.M_attackDamage;
         }
-
+        
         
     }
 

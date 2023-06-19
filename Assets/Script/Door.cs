@@ -11,7 +11,7 @@ public class Door : MonoBehaviour
     public bool M_DownDoor = false;
     public bool M_LeftDoor = false;
     public bool M_RightDoor = false;
-    private int nowRoom = 1;
+    [SerializeField] private int nowRoom = 1;
 
     [SerializeField] GameObject objMap1;
     [SerializeField] GameObject objMap2;
