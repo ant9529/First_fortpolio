@@ -47,6 +47,12 @@ public class Door : MonoBehaviour
 
     private void moveRoom()
     {
+        Vector3 m_inRightDoor  = new Vector3(-8.7f, 1f, 0);
+        Vector3 m_inLeftdoor = new Vector3(8.7f, 1f, 0);
+        Vector3 m_inDoiwnDoor    = new Vector3(0, 5.7f, 0);
+        Vector3 m_inUpDoor  = new Vector3(0, -3.6f, 0);
+       
+
 
         switch (nowRoom)
         {
@@ -57,20 +63,23 @@ public class Door : MonoBehaviour
                     objMap2.SetActive(true);
                     M_LeftDoor = false;
                     nowRoom = 2;
+                    Player.Instance.transform.position = m_inLeftdoor;
                 }
                 else if (M_RightDoor == true && Input.GetKeyDown(KeyCode.Space))
                 {
                     objMap1.SetActive(false);
-                    objMap3.SetActive(true);
+                    objMap4.SetActive(true);
                     M_RightDoor = false;
-                    nowRoom = 3;
+                    nowRoom = 4;
+                    Player.Instance.transform.position = m_inRightDoor;
                 }
                 else if (M_UpDoor == true && Input.GetKeyDown(KeyCode.Space))
                 {
                     objMap1.SetActive(false);
-                    objMap4.SetActive(true);
+                    objMap3.SetActive(true);
                     M_UpDoor = false;
-                    nowRoom = 4;
+                    nowRoom = 3;
+                    Player.Instance.transform.position = m_inUpDoor;
                 }
                 break;
 
@@ -81,6 +90,7 @@ public class Door : MonoBehaviour
                     objMap1.SetActive(true);
                     M_RightDoor = false;
                     nowRoom = 1;
+                    Player.Instance.transform.position = m_inRightDoor;
                 }
                 break;
 
@@ -91,6 +101,7 @@ public class Door : MonoBehaviour
                     objMap1.SetActive(true);
                     M_DownDoor = false;
                     nowRoom = 1;
+                    Player.Instance.transform.position = m_inDoiwnDoor;
                 }
                 break;
 
@@ -101,6 +112,7 @@ public class Door : MonoBehaviour
                     objMap1.SetActive(true);
                     M_LeftDoor = false;
                     nowRoom = 1;
+                    Player.Instance.transform.position = m_inLeftdoor;
                 }
                 break;
         }

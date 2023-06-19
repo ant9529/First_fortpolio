@@ -139,11 +139,14 @@ public class Player : MonoBehaviour
         Vector3 scale = new Vector3(transform.localScale.x, transform.localScale.y, 0);
         Vector3 position = new Vector3(transform.position.x, transform.position.y, 0);
 
-        m_attackTimer += Time.deltaTime * attackSpeed;
-        if (m_attackTimer >= m_attackTime)
+        if (m_canAttack == false)
         {
-            m_canAttack = true;
-            m_attackTimer = 0;
+            m_attackTimer += Time.deltaTime * attackSpeed;
+            if (m_attackTimer >= m_attackTime)
+            {
+                m_canAttack = true;
+                m_attackTimer = 0;
+            }
         }
 
         if (Input.GetKey(KeyCode.UpArrow) && m_canAttack == true)
