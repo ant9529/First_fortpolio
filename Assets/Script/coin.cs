@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class coin : MonoBehaviour
+public class Coin : MonoBehaviour
 {
     [SerializeField]private float moveSpeed = 10;
     private Camera m_camera;
