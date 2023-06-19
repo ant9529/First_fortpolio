@@ -4,20 +4,32 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-
+    public static Player Instance;
     
     [SerializeField] float m_moveSpeed = 3;
+    [SerializeField] public float M_attackDamage = 1.0f;
     private Camera m_camera;
     private Animator m_anim;
     [SerializeField] private GameObject m_objcoin;
     [SerializeField] private Transform trsCoinparants;
 
     [SerializeField] private float attackSpeed = 10;
-    private float attackTime = 3;
-    private float attackTimer = 0;
-    [SerializeField] private bool canAttack = true;
+    private float m_attackTime = 3;
+    private float m_attackTimer = 0;
+    [SerializeField] private bool m_canAttack = true;
 
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +44,51 @@ public class Player : MonoBehaviour
     {
         move();
         attack();
+        canAttack();
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Potal")
+        {
+            SceneLoadManager.Instance.m_inPotal = true;
+        }
+        if (collision.tag == "LeftDoor")
+        {
+            Door.Instance.M_LeftDoor = true;
+        }
+        else if (collision.tag == "RightDoor")
+        {
+            Door.Instance.M_RightDoor = true;
+        }
+        else if (collision.tag == "UPDoor")
+        {
+            Door.Instance.M_UpDoor = true;
+        }
+        else if (collision.tag == "DownDoor")
+        {
+            Door.Instance.M_DownDoor = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "LeftDoor")
+        {
+            Door.Instance.M_LeftDoor = false;
+        }
+        else if (collision.tag == "RightDoor")
+        {
+            Door.Instance.M_RightDoor = false;
+        }
+        else if (collision.tag == "UPDoor")
+        {
+            Door.Instance.M_UpDoor = false;
+        }
+        else if (collision.tag == "DownDoor")
+        {
+            Door.Instance.M_DownDoor = false;
+        }
     }
 
     private void move()
@@ -82,17 +139,23 @@ public class Player : MonoBehaviour
     {
         Vector3 scale = new Vector3(transform.localScale.x, transform.localScale.y, 0);
         Vector3 position = new Vector3(transform.position.x, transform.position.y, 0);
-        
 
-        if (Input.GetKey(KeyCode.UpArrow) && canAttack == true)
+        m_attackTimer += Time.deltaTime * attackSpeed;
+        if (m_attackTimer >= m_attackTime)
         {
-            canAttack = false;
-
-            Instantiate(m_objcoin, position, Quaternion.Euler(0,0,0f), trsCoinparants);  
+            m_canAttack = true;
+            m_attackTimer = 0;
         }
-        else if (Input.GetKey(KeyCode.DownArrow) && canAttack == true)
+
+        if (Input.GetKey(KeyCode.UpArrow) && m_canAttack == true)
         {
-            canAttack = false;
+            m_canAttack = false;
+
+            Instantiate(m_objcoin, position, Quaternion.Euler(0,0,0f), trsCoinparants);
+        }
+        else if (Input.GetKey(KeyCode.DownArrow) && m_canAttack == true)
+        {
+            m_canAttack = false;
 
             Instantiate(m_objcoin, position, Quaternion.Euler(0, 0, 180f), trsCoinparants);
         }
@@ -100,30 +163,30 @@ public class Player : MonoBehaviour
         {
             scale.x = -1;
             transform.localScale = scale;
-            if (canAttack == true)
+            if (m_canAttack == true)
             {
-                canAttack = false;
-
+                
                 Instantiate(m_objcoin, position, Quaternion.Euler(0, 0, 270f), trsCoinparants);
-            } 
+            }
+            m_canAttack = false;
         }
-        else if (Input.GetKey(KeyCode.LeftArrow) )
+        else if (Input.GetKey(KeyCode.LeftArrow))
         {
             scale.x = 1;
             transform.localScale = scale;
-            if (canAttack == true)
+            if (m_canAttack == true)
             {
-                canAttack = false;
-
+                
                 Instantiate(m_objcoin, position, Quaternion.Euler(0, 0, 90f), trsCoinparants);
             }
+            m_canAttack = false;
         }
+    }
 
-        attackTimer += Time.deltaTime * attackSpeed;
-        if (attackTimer >= attackTime)
-        {
-            canAttack = true;
-            attackTimer = 0;
-        }
+    private void canAttack()
+    {
+        
+
+
     }
 }

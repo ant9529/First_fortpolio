@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class Potal : MonoBehaviour
 {
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        { 
-        SceneLoadManager.
-    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -22,4 +17,6 @@ public class Potal : MonoBehaviour
     {
         
     }
+
+
 }

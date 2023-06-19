@@ -3,7 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Potal
+  - Enemy
+  - Coin
+  - Ground
+  - Rock
+  - UpDoor
+  - LeftDoor
+  - RightDoor
+  - DownDoor
   layers:
   - Default
   - TransparentFX

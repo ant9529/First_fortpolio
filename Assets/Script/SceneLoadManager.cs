@@ -5,13 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoadManager : MonoBehaviour
 {
-    public SceneLoadManager Instance;
-
-    public enum eSceneTag
-    { 
-        StartStage,
-        MainStage,
-    }
+    public static SceneLoadManager Instance;
+    public bool m_inPotal;
 
     private void Awake()
     {
@@ -32,11 +27,22 @@ public class SceneLoadManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        loadScene();
     }
 
-    public void LoadScene(eSceneTag _value)
+    private void loadScene()
     {
-        SceneManager.LoadSceneAsync((int)_value);
+        if (m_inPotal && Input.GetKeyDown(KeyCode.Space))
+        {
+            m_inPotal = false;
+            SceneManager.LoadSceneAsync(CheckScene());
+        }
     }
+
+    public int CheckScene()
+    {
+        int sceneNumber = SceneManager.GetActiveScene().buildIndex;
+        return sceneNumber+1;
+    }
+
 }
