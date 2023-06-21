@@ -4,24 +4,23 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private Player player;
-
-    [SerializeField] private float m_Hp = 5.0f;
-    [SerializeField] private float m_MoveSpeed = 1;
+    [SerializeField] private float m_enemyHp = 5.0f;
+    [SerializeField] private float m_enemyMoveSpeed = 1;
     [SerializeField] private float m_Damage;
     private Player m_player;
+
 
     // Start is called before the first frame update
     void Start()
     {
-      
+        
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Coin")
         {
-
-            m_Hp -= Player.Instance.M_attackDamage;
+         m_player = GetComponent<Player>();
+         m_enemyHp -= m_player.Setdamage();
         }
         
         
@@ -44,7 +43,7 @@ public class Enemy : MonoBehaviour
 
     private void checkHp()
     {
-        if (m_Hp == 0)
+        if (m_enemyHp == 0)
         {
             Destroy(gameObject);
         }
@@ -52,11 +51,6 @@ public class Enemy : MonoBehaviour
 
     private void movepatten()
     {
-        transform.position += transform.right * Time.deltaTime * m_MoveSpeed;
-    }
-
-    private void changeMoveAngle()
-    {
-
+        transform.position += transform.right * Time.deltaTime * m_enemyMoveSpeed;
     }
 }

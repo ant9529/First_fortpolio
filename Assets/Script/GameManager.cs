@@ -3,21 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Door : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    public static Door Instance;
+    public static GameManager Instance;
 
+    GameObject objMap1;
+    GameObject objMap2;
+    GameObject objMap3;
+    GameObject objMap4;
     public bool M_UpDoor = false;
     public bool M_DownDoor = false;
     public bool M_LeftDoor = false;
     public bool M_RightDoor = false;
-    [SerializeField] private int nowRoom = 1;
+    public int nowRoom = 1;
 
-    [SerializeField] GameObject objMap1;
-    [SerializeField] GameObject objMap2;
-    [SerializeField] GameObject objMap3;
-    [SerializeField] GameObject objMap4;
-
+    [Header("æ∆¿Ã≈€")]
+    [SerializeField]private List<GameObject> m_listItem = new List<GameObject>();
 
     private void Awake()
     {
@@ -42,17 +43,15 @@ public class Door : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        moveRoom();
+        changeRoom();
     }
 
-    private void moveRoom()
+    private void changeRoom()
     {
         Vector3 m_inRightDoor  = new Vector3(-8.7f, 1f, 0);
         Vector3 m_inLeftdoor = new Vector3(8.7f, 1f, 0);
         Vector3 m_inDoiwnDoor    = new Vector3(0, 5.7f, 0);
         Vector3 m_inUpDoor  = new Vector3(0, -3.6f, 0);
-       
-
 
         switch (nowRoom)
         {
