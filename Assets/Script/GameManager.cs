@@ -17,9 +17,6 @@ public class GameManager : MonoBehaviour
     public bool M_RightDoor = false;
     public int nowRoom = 1;
 
-    [Header("æ∆¿Ã≈€")]
-    [SerializeField]private List<GameObject> m_listItem = new List<GameObject>();
-
     private void Awake()
     {
         if (Instance == null)

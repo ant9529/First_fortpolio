@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     [SerializeField] float m_moveSpeed = 3;
 
     [SerializeField] private GameObject m_objAttack;
+    [SerializeField] private GameObject m_objBoom;
     [SerializeField] private Transform trsCoinparants;
 
 
@@ -61,6 +62,7 @@ public class Player : MonoBehaviour
     {
         move();
         attack();
+        boom();
         invicibillity();
         
     }
@@ -85,6 +87,7 @@ public class Player : MonoBehaviour
             Debug.Log("æ∆¿Ã≈€»πµÊ");
             Item item = collision.transform.GetComponent<Item>();
             eitemtag itemtag = item.Getitemtag();
+            Destroy(collision.gameObject);
 
             switch (itemtag)
             {
@@ -246,6 +249,16 @@ public class Player : MonoBehaviour
                 Instantiate(m_objAttack, position, Quaternion.Euler(0, 0, 90f), trsCoinparants);
             }
             m_canAttack = false;
+        }
+    }
+
+    private void boom()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            Vector3 playerposition = new Vector3(transform.position.x, transform.position.y, 0);
+
+            Instantiate(m_objBoom, playerposition,Quaternion.identity);
         }
     }
 
