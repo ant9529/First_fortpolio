@@ -7,8 +7,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float m_enemyHp = 5.0f;
     [SerializeField] private float m_enemyMoveSpeed = 1;
     [SerializeField] private float m_Damage;
-    private Player m_player;
-
+    [SerializeField] private Attack m_Attack;
 
     // Start is called before the first frame update
     void Start()
@@ -19,11 +18,9 @@ public class Enemy : MonoBehaviour
     {
         if (collision.tag == "Coin")
         {
-         m_player = GetComponent<Player>();
-         m_enemyHp -= m_player.Setdamage();
+         m_Attack = collision.transform.GetComponent<Attack>();
+         m_enemyHp -= m_Attack.CheckDamage();
         }
-        
-        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

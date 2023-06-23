@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
-    [SerializeField]private float moveSpeed = 10;
+    private float m_moveSpeed;
+    private float m_damage;
+    private bool enemyAttack = false;
 
 
     // Start is called before the first frame update
@@ -17,7 +19,7 @@ public class Attack : MonoBehaviour
     void Update()
     {
         move();
-        overScreen();
+        //overScreen();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -28,32 +30,48 @@ public class Attack : MonoBehaviour
         }
     }
 
-    private void move()
+    private void OnBecameInvisible()
     {
-        transform.position += transform.up * Time.deltaTime * moveSpeed;
+        Destroy(gameObject);
     }
 
-    private void overScreen()
+    private void move()
     {
-        Vector3 viewPosition = Camera.main.WorldToViewportPoint(transform.position);
+        transform.position += transform.up * Time.deltaTime * m_moveSpeed;
+    }
 
-        if (viewPosition.x <= 0.0f)
-        {
-            Destroy(gameObject);
-        }
-        else if (viewPosition.x >= 1.0f)
-        {
-            Destroy(gameObject);
-        }
-        else if (viewPosition.y <= 0.0f)
-        {
-            Destroy(gameObject);
-        }
-        else if (viewPosition.y >= 1.0f)
-        {
-            Destroy(gameObject);
-        }
+    //private void overScreen()
+    //{
+    //    Vector3 viewPosition = Camera.main.WorldToViewportPoint(transform.position);
 
+    //    if (viewPosition.x <= 0.0f)
+    //    {
+    //        Destroy(gameObject);
+    //    }
+    //    else if (viewPosition.x >= 1.0f)
+    //    {
+    //        Destroy(gameObject);
+    //    }
+    //    else if (viewPosition.y <= 0.0f)
+    //    {
+    //        Destroy(gameObject);
+    //    }
+    //    else if (viewPosition.y >= 1.0f)
+    //    {
+    //        Destroy(gameObject);
+    //    }
+    //}
+
+    public void SetDamage(float damage, float movespeed)
+    {
+        m_moveSpeed = movespeed;
+        m_damage = damage;
+        enemyAttack = false;
+    }
+
+    public float CheckDamage()
+    {
+        return m_damage;
     }
 
 }

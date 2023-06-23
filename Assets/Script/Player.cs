@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     [Header("´É·ÂÄ¡")]
     [SerializeField] private int m_attackSpeed = 10;
     [SerializeField] private int m_attackDamage = 1;
+    [SerializeField] private int m_attackMoveSpeed = 10;
     [SerializeField] float m_moveSpeed = 3;
 
     [SerializeField] private GameObject m_objAttack;
@@ -26,29 +27,24 @@ public class Player : MonoBehaviour
     private float m_invicibilityTimer = 0;
 
     private SpriteRenderer m_spr;
-
     private Animator m_anim;
 
-    
-    
-
-    
     private float m_attackTime = 3;
     private float m_attackTimer = 0;
-    [SerializeField] private bool m_canAttack = true;
+    private bool m_canAttack = true;
 
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(this);
-        }
-    }
+    //private void Awake()
+    //{
+    //    if (Instance == null)
+    //    {
+    //        Instance = this;
+    //    }
+    //    else
+    //    {
+    //        Destroy(this);
+    //    }
+    //}
 
     // Start is called before the first frame update
     void Start()
@@ -115,46 +111,60 @@ public class Player : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Door"))
+        {
+            Door gamemanager = collision.transform.GetComponent<Door>();
+
+            if (collision.tag == "LeftDoor")
+            {
+                gamemanager.M_LeftDoor = true;
+            }
+            else if (collision.tag == "RightDoor")
+            {
+                gamemanager.M_RightDoor = true;
+            }
+            else if (collision.tag == "UpDoor")
+            {
+                gamemanager.M_UpDoor = true;
+            }
+            else if (collision.tag == "DownDoor")
+            {
+                gamemanager.M_DownDoor = true;
+            }
+        }
+
         if (collision.tag == "Potal")
         {
             SceneLoadManager.Instance.m_inPotal = true;
         }
-        if (collision.tag == "LeftDoor")
-        {
-            GameManager.Instance.M_LeftDoor = true;
-        }
-        else if (collision.tag == "RightDoor")
-        {
-            GameManager.Instance.M_RightDoor = true;
-        }
-        else if (collision.tag == "UpDoor")
-        {
-            GameManager.Instance.M_UpDoor = true;
-        }
-        else if (collision.tag == "DownDoor")
-        {
-            GameManager.Instance.M_DownDoor = true;
-        }
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "LeftDoor")
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Door"))
         {
-            GameManager.Instance.M_LeftDoor = false;
+            Door gamemanager = collision.transform.GetComponent<Door>();
+
+            if (collision.tag == "LeftDoor")
+            {
+                gamemanager.M_LeftDoor = false;
+            }
+            else if (collision.tag == "RightDoor")
+            {
+                gamemanager.M_RightDoor = false;
+            }
+            else if (collision.tag == "UpDoor")
+            {
+                gamemanager.M_UpDoor = false;
+            }
+            else if (collision.tag == "DownDoor")
+            {
+                gamemanager.M_DownDoor = false;
+            }
         }
-        else if (collision.tag == "RightDoor")
-        {
-            GameManager.Instance.M_RightDoor = false;
-        }
-        else if (collision.tag == "UpDoor")
-        {
-            GameManager.Instance.M_UpDoor = false;
-        }
-        else if (collision.tag == "DownDoor")
-        {
-            GameManager.Instance.M_DownDoor = false;
-        }
+
+        
     }
 
     private void move()
@@ -193,7 +203,7 @@ public class Player : MonoBehaviour
         transform.position = position;
         transform.localScale = scale;
 
-        if (horizontal == 1 || horizontal == -1)
+        if (horizontal == 1 || horizontal == -1 || vertical == 1 || vertical == -1)
             m_anim.SetBool("move", true);
         else
         {
@@ -220,13 +230,17 @@ public class Player : MonoBehaviour
         {
             m_canAttack = false;
 
-            Instantiate(m_objAttack, position, Quaternion.Euler(0,0,0f), trsCoinparants);
+            GameObject objatck = Instantiate(m_objAttack, position, Quaternion.Euler(0,0,0f), trsCoinparants);
+            Attack scAttack = objatck.GetComponent<Attack>();
+            scAttack.SetDamage(m_attackDamage, m_attackMoveSpeed);
         }
         else if (Input.GetKey(KeyCode.DownArrow) && m_canAttack == true)
         {
             m_canAttack = false;
 
-            Instantiate(m_objAttack, position, Quaternion.Euler(0, 0, 180f), trsCoinparants);
+            GameObject objatck = Instantiate(m_objAttack, position, Quaternion.Euler(0, 0, 180f), trsCoinparants);
+            Attack scAttack = objatck.GetComponent<Attack>();
+            scAttack.SetDamage(m_attackDamage, m_attackMoveSpeed);
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
@@ -234,8 +248,9 @@ public class Player : MonoBehaviour
             transform.localScale = scale;
             if (m_canAttack == true)
             {
-                
-                Instantiate(m_objAttack, position, Quaternion.Euler(0, 0, 270f), trsCoinparants);
+                GameObject objatck = Instantiate(m_objAttack, position, Quaternion.Euler(0, 0, 270f), trsCoinparants);
+                Attack scAttack = objatck.GetComponent<Attack>();
+                scAttack.SetDamage(m_attackDamage, m_attackMoveSpeed);
             }
             m_canAttack = false;
         }
@@ -245,8 +260,9 @@ public class Player : MonoBehaviour
             transform.localScale = scale;
             if (m_canAttack == true)
             {
-                
-                Instantiate(m_objAttack, position, Quaternion.Euler(0, 0, 90f), trsCoinparants);
+                GameObject objatck = Instantiate(m_objAttack, position, Quaternion.Euler(0, 0, 90f), trsCoinparants);
+                Attack scAttack = objatck.GetComponent<Attack>();
+                scAttack.SetDamage(m_attackDamage, m_attackMoveSpeed);
             }
             m_canAttack = false;
         }
@@ -256,9 +272,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            Vector3 playerposition = new Vector3(transform.position.x, transform.position.y, 0);
-
-            Instantiate(m_objBoom, playerposition,Quaternion.identity);
+            GameObject objboom = Instantiate(m_objBoom, transform.position,Quaternion.identity, trsCoinparants);
         }
     }
 
@@ -293,4 +307,8 @@ public class Player : MonoBehaviour
         return m_attackDamage;
     }
 
+    public void Setposion(Vector3 _position)
+    {
+        transform.position = _position;
+    }
 }
