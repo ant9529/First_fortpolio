@@ -104,8 +104,11 @@ public class Player : MonoBehaviour
                     m_attackDamage++;
                     m_attackSpeed++;
                     break;
+
+                case eitemtag.Boom:
+                    GameManager.Instance.m_haveBoom++;
+                    break;
             }
-            
         }
     }
 
@@ -270,9 +273,17 @@ public class Player : MonoBehaviour
 
     private void boom()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            GameObject objboom = Instantiate(m_objBoom, transform.position,Quaternion.identity, trsCoinparants);
+            if (GameManager.Instance.m_haveBoom <= 0)
+            {
+                return;
+            }
+            else if (GameManager.Instance.m_haveBoom > 0)
+            {
+                GameObject objboom = Instantiate(m_objBoom, transform.position, Quaternion.identity, trsCoinparants);
+                GameManager.Instance.m_haveBoom--;
+            }
         }
     }
 

@@ -170,4 +170,4 @@ MonoBehaviour:
   m_enemyHp: 5
   m_enemyMoveSpeed: 3
   m_Damage: 0
-  m_player: {fileID: 1011300515173015657, guid: c1aa4aa3a6f571d4897dc9be9cc1f5c4, type: 3}
+  m_objBoom: {fileID: 4723053245072092355, guid: 171f39f8ad131284898fed8d076bea23, type: 3}

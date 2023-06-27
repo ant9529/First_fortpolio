@@ -8,4 +8,5 @@ public enum eitemtag
     Axe,
     Hammer,
     Sword,
+    Boom,
 }
