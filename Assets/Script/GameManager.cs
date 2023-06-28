@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class GameManager : MonoBehaviour
@@ -11,6 +12,12 @@ public class GameManager : MonoBehaviour
     public int m_haveBoom = 3;
 
     [SerializeField] private TextMeshProUGUI m_haveBoomText;
+    [SerializeField] private TextMeshProUGUI m_damageText;
+    [SerializeField] private TextMeshProUGUI m_attackSpeedText;
+    [SerializeField] private TextMeshProUGUI m_moveSpeedText;
+    [SerializeField] private Player m_player;
+    [SerializeField] private GameObject m_statusUi;
+    private bool m_onstatus = false;
 
 
 
@@ -35,7 +42,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        boomcount();
+        SetText();
+        statusUiControl();
     }
 
     public void Setalpha(float _alpha)
@@ -48,9 +56,13 @@ public class GameManager : MonoBehaviour
         m_spr.color = color;
     }
 
-    private void boomcount()
+    private void SetText()
     {
         m_haveBoomText.SetText($"X{m_haveBoom}");
+        m_damageText.SetText($"{m_player.Getstatus().x}");
+        m_attackSpeedText.SetText($"{m_player.Getstatus().y}");
+        m_moveSpeedText.SetText($"{m_player.Getstatus().z}");
+
     }
 
     public Vector3Int changeVector3(float _x, float _y)
@@ -66,5 +78,17 @@ public class GameManager : MonoBehaviour
         return intvector3;
     }
 
-
+    private void statusUiControl()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && m_onstatus == false)
+        {
+            m_statusUi.SetActive(true);
+            m_onstatus = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.E) && m_onstatus == true)
+        {
+            m_statusUi.SetActive(false);
+            m_onstatus = false;
+        }
+    }
 }

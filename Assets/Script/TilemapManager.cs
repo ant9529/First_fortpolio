@@ -15,7 +15,15 @@ public class TilemapManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        spike = transform.GetChild(2).gameObject;
+        if (transform.GetChild(2) == null)
+        {
+            return;
+        }
+        else
+        {
+            spike = transform.GetChild(2).gameObject;
+        }
+        
     }
 
     // Update is called once per frame

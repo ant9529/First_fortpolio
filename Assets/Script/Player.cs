@@ -83,7 +83,7 @@ public class Player : MonoBehaviour
             Debug.Log("æ∆¿Ã≈€»πµÊ");
             Item item = collision.transform.GetComponent<Item>();
             eitemtag itemtag = item.Getitemtag();
-            Destroy(collision.gameObject);
+            item.GetItem();
 
             switch (itemtag)
             {
@@ -313,9 +313,11 @@ public class Player : MonoBehaviour
         m_spr.color = color;
     }
 
-    public int Setdamage()
+    public Vector3 Getstatus()
     {
-        return m_attackDamage;
+        Vector3 status = new Vector3(m_attackDamage, m_attackSpeed, m_moveSpeed);
+
+        return status;
     }
 
     public void Setposion(Vector3 _position)
