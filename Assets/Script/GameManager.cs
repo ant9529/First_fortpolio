@@ -16,8 +16,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI m_attackSpeedText;
     [SerializeField] private TextMeshProUGUI m_moveSpeedText;
     [SerializeField] private Player m_player;
-    [SerializeField] private GameObject m_statusUi;
-    private bool m_onstatus = false;
+
+
 
 
 
@@ -43,7 +43,6 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         SetText();
-        statusUiControl();
     }
 
     public void Setalpha(float _alpha)
@@ -78,17 +77,5 @@ public class GameManager : MonoBehaviour
         return intvector3;
     }
 
-    private void statusUiControl()
-    {
-        if (Input.GetKeyDown(KeyCode.E) && m_onstatus == false)
-        {
-            m_statusUi.SetActive(true);
-            m_onstatus = true;
-        }
-        else if (Input.GetKeyDown(KeyCode.E) && m_onstatus == true)
-        {
-            m_statusUi.SetActive(false);
-            m_onstatus = false;
-        }
-    }
+
 }

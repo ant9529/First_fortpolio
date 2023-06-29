@@ -6,7 +6,6 @@ public class Attack : MonoBehaviour
 {
     private float m_moveSpeed;
     private float m_damage;
-    private bool enemyAttack = false;
 
 
     // Start is called before the first frame update
@@ -43,7 +42,6 @@ public class Attack : MonoBehaviour
     {
         m_moveSpeed = movespeed;
         m_damage = damage;
-        enemyAttack = false;
     }
 
     public float CheckDamage()

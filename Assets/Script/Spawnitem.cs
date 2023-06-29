@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Spawnitem : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> m_listItem = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +25,6 @@ public class Spawnitem : MonoBehaviour
     private void spawnItem()
     {
         Vector3 position = new Vector3(transform.position.x, transform.position.y, 0);
-        Instantiate(m_listItem[iRnad()], transform.transform);
+        Instantiate(ItemManager.Instance.m_listItem[iRnad()], transform.transform);
     }
 }

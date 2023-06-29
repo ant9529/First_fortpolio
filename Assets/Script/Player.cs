@@ -66,7 +66,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             m_hp--;
             m_invicibillity = true;
@@ -84,6 +84,8 @@ public class Player : MonoBehaviour
             Item item = collision.transform.GetComponent<Item>();
             eitemtag itemtag = item.Getitemtag();
             item.GetItem();
+            SpriteRenderer itemspr = collision.transform.GetComponent<SpriteRenderer>();
+            ItemManager.Instance.GetBookItem(itemspr.sprite, itemtag, collision.gameObject);
 
             switch (itemtag)
             {
@@ -109,6 +111,15 @@ public class Player : MonoBehaviour
                     GameManager.Instance.m_haveBoom++;
                     break;
             }
+        }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            m_hp--;
+            m_invicibillity = true;
+            setalpha(0.2f);
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Player"), true);
+            m_playerhp.Sethp(m_hp, m_maxhp);
         }
     }
 
@@ -301,7 +312,7 @@ public class Player : MonoBehaviour
                 m_invicibilityTimer = 0;
                 m_invicibillity = false;
                 setalpha(1.0f);
-                Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Player"), false) ;
+                Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Player"), false);
             }
         }
     }

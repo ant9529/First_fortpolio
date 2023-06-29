@@ -10,7 +10,6 @@ public class Boom : MonoBehaviour
     private float m_boomtime = 3;
     private float m_boomtimer = 0;
     private float m_boomsec = 5;
-    private bool m_canboom = false;
 
     GameObject objmanager;
     GameManager scmanager;

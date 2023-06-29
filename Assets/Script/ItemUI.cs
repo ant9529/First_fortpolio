@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class ItemUI : MonoBehaviour
 {
     private Image image;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,4 +27,6 @@ public class ItemUI : MonoBehaviour
         image.sprite = _spr;
         image.SetNativeSize();
     }
+
+
 }
