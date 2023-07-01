@@ -9,12 +9,11 @@ TagManager:
   - Coin
   - Ground
   - Rock
-  - UpDoor
-  - LeftDoor
-  - RightDoor
-  - DownDoor
   - Item
   - Boom
+  - ItemBoom
+  - Spike
+  - Door
   layers:
   - Default
   - TransparentFX

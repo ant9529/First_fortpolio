@@ -7,6 +7,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float m_enemyHp = 5.0f;
     [SerializeField] private float m_enemyMoveSpeed = 1;
     [SerializeField] private float m_Damage;
+    [SerializeField] private enemypatten m_nowMoving = enemypatten.right;
+    Vector3 position = new Vector3(1, 0, 0);
 
     [SerializeField] private GameObject m_objBoom;
 
@@ -21,6 +23,23 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         m_spr = GetComponent<SpriteRenderer>();
+        if (m_nowMoving == enemypatten.right)
+        { 
+            position = new Vector3(1, 0, 0);
+        }
+        else if (m_nowMoving == enemypatten.left)
+        {
+            position =  new Vector3(-1, 0, 0);
+        }
+        else if (m_nowMoving == enemypatten.down)
+        {
+            position =  new Vector3(0, -1, 0);
+        }
+        else if (m_nowMoving == enemypatten.up)
+        {
+            position =  new Vector3(0, 1, 0);
+        }
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -30,6 +49,11 @@ public class Enemy : MonoBehaviour
             m_enemyHp -= m_Attack.CheckDamage();
             setalpha(0.5f);
             hit = true;
+        }
+
+        if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Rock")
+        {
+            movepatten();
         }
     }
 
@@ -43,27 +67,19 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Rock")
-        {
-            transform.Rotate(0, 0, -90);
-        }
-    }
-
     // Update is called once per frame
     void Update()
     {
         checktimer();
         checkHp();
-        movepatten();
+        moveing();
     }
 
     private void checkHp()
     {
         if (m_enemyHp <= 0)
         {
-            int irand = Random.Range(0,5);
+            int irand = Random.Range(0,0);
             if (irand == 0)
             {
                 Instantiate(m_objBoom, transform.position, Quaternion.identity);
@@ -74,7 +90,39 @@ public class Enemy : MonoBehaviour
 
     private void movepatten()
     {
-        transform.position += transform.right * Time.deltaTime * m_enemyMoveSpeed;
+        Vector3 scale = new Vector3(1, 1, 1);
+        switch (m_nowMoving)
+        {
+            case enemypatten.right:
+                position.x = 0;
+                position.y = -1;
+                m_nowMoving = enemypatten.down;
+                break;
+            case enemypatten.down:
+                position.x = -1;
+                position.y = 0;
+                m_nowMoving = enemypatten.left;
+                scale.x = -1;
+                transform.localScale = scale;
+                break;
+            case enemypatten.left:
+                position.x = 0;
+                position.y = 1;
+                m_nowMoving = enemypatten.up;
+                break;
+            case enemypatten.up:
+                position.x = 1;
+                position.y = 0;
+                m_nowMoving = enemypatten.right;
+                scale.x = 1;
+                transform.localScale = scale;
+                break;
+        }
+    }
+
+    private void moveing()
+    {
+        transform.position += position * Time.deltaTime * m_enemyMoveSpeed;
     }
     private void setalpha(float _alpha)
     {

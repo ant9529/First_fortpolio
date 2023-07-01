@@ -80,7 +80,6 @@ public class Player : MonoBehaviour
     {
         if (collision.tag == "Item")
         {
-            Debug.Log("æ∆¿Ã≈€»πµÊ");
             Item item = collision.transform.GetComponent<Item>();
             eitemtag itemtag = item.Getitemtag();
             item.GetItem();
@@ -106,11 +105,13 @@ public class Player : MonoBehaviour
                     m_attackDamage++;
                     m_attackSpeed++;
                     break;
-
-                case eitemtag.Boom:
-                    GameManager.Instance.m_haveBoom++;
-                    break;
             }
+        }
+
+        if (collision.tag == "ItemBoom")
+        { 
+            GameManager.Instance.m_haveBoom++;
+            Destroy(collision.gameObject);
         }
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
@@ -127,58 +128,21 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Door"))
         {
-            Door gamemanager = collision.transform.GetComponent<Door>();
+            Door door = collision.transform.GetComponent<Door>();
+            eDoortag tag = door.GetDoorTag();
 
-            if (collision.tag == "LeftDoor")
-            {
-                gamemanager.M_LeftDoor = true;
-            }
-            else if (collision.tag == "RightDoor")
-            {
-                gamemanager.M_RightDoor = true;
-            }
-            else if (collision.tag == "UpDoor")
-            {
-                gamemanager.M_UpDoor = true;
-            }
-            else if (collision.tag == "DownDoor")
-            {
-                gamemanager.M_DownDoor = true;
-            }
+            GameManager.Instance.SetBool(tag);
         }
 
         if (collision.tag == "Potal")
         {
             SceneLoadManager.Instance.m_inPotal = true;
         }
-
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Door"))
-        {
-            Door gamemanager = collision.transform.GetComponent<Door>();
-
-            if (collision.tag == "LeftDoor")
-            {
-                gamemanager.M_LeftDoor = false;
-            }
-            else if (collision.tag == "RightDoor")
-            {
-                gamemanager.M_RightDoor = false;
-            }
-            else if (collision.tag == "UpDoor")
-            {
-                gamemanager.M_UpDoor = false;
-            }
-            else if (collision.tag == "DownDoor")
-            {
-                gamemanager.M_DownDoor = false;
-            }
-        }
-
-        
+        GameManager.Instance.SetBoolfalse();
     }
 
     private void move()
@@ -331,7 +295,7 @@ public class Player : MonoBehaviour
         return status;
     }
 
-    public void Setposion(Vector3 _position)
+    public void SetPosion(Vector3 _position)
     {
         transform.position = _position;
     }

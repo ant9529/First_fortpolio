@@ -10,3 +10,19 @@ public enum eitemtag
     Sword,
     Boom,
 }
+
+public enum enemypatten
+{ 
+    right,
+    down,
+    left,
+    up,
+}
+
+public enum eDoortag
+{ 
+    RightDoor,
+    LeftDoor,
+    UpDoor,
+    DownDoor,
+}

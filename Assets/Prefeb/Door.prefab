@@ -146,8 +146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5dc6e4fca8add14a9993f5110712997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eDoor: 0
   M_UpDoor: 0
   M_DownDoor: 0
   M_LeftDoor: 0
   M_RightDoor: 0
-  nowRoom: 1

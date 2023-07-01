@@ -42,7 +42,6 @@ public class ItemManager : MonoBehaviour
         GetBookList();
         GetBookSprite();
         setPlayerFrebs();
-        
     }
 
     // Update is called once per frame
@@ -50,7 +49,6 @@ public class ItemManager : MonoBehaviour
     {
         callStatusUI();
         callBookUI();
-        //test();
     }
 
     private void addListRange()
@@ -165,18 +163,6 @@ public class ItemManager : MonoBehaviour
                 ItemUI ItemUI = obj.GetComponent<ItemUI>();
                 ItemUI.SetSprite(_spr.sprite);
             }
-        }
-    }
-
-    private void test()
-    {
-        if (PlayerPrefs.HasKey("0") || PlayerPrefs.HasKey("1") || PlayerPrefs.HasKey("2") || PlayerPrefs.HasKey("3"))
-        {
-            Debug.Log("값이 있소");
-        }
-        else
-        {
-            return;
         }
     }
 }
