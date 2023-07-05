@@ -66,14 +66,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
-        {
-            m_hp--;
-            m_invicibillity = true;
-            setalpha(0.2f);
-            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Player"), true);
-            m_playerhp.Sethp(m_hp, m_maxhp);
-        }
+       
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -114,12 +107,24 @@ public class Player : MonoBehaviour
             Destroy(collision.gameObject);
         }
 
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy") || collision.gameObject.layer == LayerMask.NameToLayer("Boss"))
         {
             m_hp--;
             m_invicibillity = true;
             setalpha(0.2f);
             Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Player"), true);
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyBullet"), LayerMask.NameToLayer("Player"), true);
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Boss"), LayerMask.NameToLayer("Player"), true);
+            m_playerhp.Sethp(m_hp, m_maxhp);
+        }
+        else if (collision.gameObject.layer == LayerMask.NameToLayer("EnemyBullet"))
+        {
+            m_hp--;
+            m_invicibillity = true;
+            setalpha(0.2f);
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Player"), true);
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyBullet"), LayerMask.NameToLayer("Player"), true);
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Boss"), LayerMask.NameToLayer("Player"), true);
             m_playerhp.Sethp(m_hp, m_maxhp);
         }
     }
@@ -277,6 +282,8 @@ public class Player : MonoBehaviour
                 m_invicibillity = false;
                 setalpha(1.0f);
                 Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Player"), false);
+                Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyBullet"), LayerMask.NameToLayer("Player"), false);
+                Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Boss"), LayerMask.NameToLayer("Player"), false);
             }
         }
     }

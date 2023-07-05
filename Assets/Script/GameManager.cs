@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     GameObject objMap2;
     GameObject objMap3;
     GameObject objMap4;
+    GameObject objMap5;
     [SerializeField]public bool m_bright = false;
     [SerializeField]public bool m_bleft = false;
     [SerializeField]public bool m_bup = false;
@@ -51,6 +52,7 @@ public class GameManager : MonoBehaviour
         objMap2 = GameObject.Find("ParentsMap2").transform.GetChild(0).gameObject;
         objMap3 = GameObject.Find("ParentsMap3").transform.GetChild(0).gameObject;
         objMap4 = GameObject.Find("ParentsMap4").transform.GetChild(0).gameObject;
+        objMap5 = GameObject.Find("ParentsMap5").transform.GetChild(0).gameObject;
     }
 
     // Update is called once per frame
@@ -185,7 +187,15 @@ public class GameManager : MonoBehaviour
                     objMap1.SetActive(true);
                     m_nowRoom = 1;
                     m_player.SetPosion(m_inDownDoor);
-                m_bdown = false;
+                    m_bdown = false;
+                }
+                else if (m_bup == true)
+                {
+                    objMap3.SetActive(false);
+                    objMap5.SetActive(true);
+                    m_nowRoom = 5;
+                    m_player.SetPosion(m_inUpDoor);
+                    m_bup = false;
                 }
                 break;
 

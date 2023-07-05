@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Potal
   - Enemy
-  - Coin
   - Ground
   - Rock
   - Item
@@ -14,6 +13,7 @@ TagManager:
   - ItemBoom
   - Spike
   - Door
+  - Attack
   layers:
   - Default
   - TransparentFX
@@ -27,8 +27,8 @@ TagManager:
   - Ground
   - Rock
   - Spike
-  - 
-  - 
+  - Boss
+  - EnemyBullet
   - 
   - 
   - 

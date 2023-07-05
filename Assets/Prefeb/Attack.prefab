@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -3376697017172185489}
   m_Layer: 0
   m_Name: Attack
-  m_TagString: Coin
+  m_TagString: Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,7 +98,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ed26c0ff355be1498be5ecbd89eaddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 8
 --- !u!58 &-3376697017172185489
 CircleCollider2D:
   m_ObjectHideFlags: 0

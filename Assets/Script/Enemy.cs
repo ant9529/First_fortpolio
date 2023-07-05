@@ -43,7 +43,7 @@ public class Enemy : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Coin")
+        if (collision.tag == "Attack")
         {
             Attack m_Attack = collision.transform.GetComponent<Attack>();
             m_enemyHp -= m_Attack.CheckDamage();
