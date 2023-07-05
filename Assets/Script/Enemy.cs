@@ -82,7 +82,7 @@ public class Enemy : MonoBehaviour
             int irand = Random.Range(0,0);
             if (irand == 0)
             {
-                Instantiate(m_objBoom, transform.position, Quaternion.identity);
+                Instantiate(m_objBoom, transform.position, Quaternion.identity,ItemManager.Instance.m_itemCreat);
             }
             Destroy(gameObject);
         }

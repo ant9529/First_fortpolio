@@ -8,6 +8,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    [SerializeField] private Player m_player;
+    [SerializeField] private Transform m_trsAttack;
+
+    [Header("∏  ¿Ãµø")]
     public int m_nowRoom = 1;
     public int m_haveBoom = 3;
 
@@ -16,22 +20,25 @@ public class GameManager : MonoBehaviour
     GameObject objMap3;
     GameObject objMap4;
     GameObject objMap5;
-    [SerializeField]public bool m_bright = false;
-    [SerializeField]public bool m_bleft = false;
-    [SerializeField]public bool m_bup = false;
-    [SerializeField]public bool m_bdown = false;
 
-    [SerializeField] private TextMeshProUGUI m_haveBoomText;
-    [SerializeField] private TextMeshProUGUI m_damageText;
-    [SerializeField] private TextMeshProUGUI m_attackSpeedText;
-    [SerializeField] private TextMeshProUGUI m_moveSpeedText;
-    [SerializeField] private Player m_player;
-    [SerializeField] private Transform m_trsAttack;
+    public bool m_bright = false;
+    public bool m_bleft = false;
+    public bool m_bup = false;
+    public bool m_bdown = false;
 
     Vector3 m_inRightDoor = new Vector3(-8.7f, 1f, 0);
     Vector3 m_inLeftdoor = new Vector3(8.7f, 1f, 0);
     Vector3 m_inDownDoor = new Vector3(0, 5.7f, 0);
     Vector3 m_inUpDoor = new Vector3(0, -3.6f, 0);
+
+    [Header("UI")]
+    [SerializeField] private TextMeshProUGUI m_haveBoomText;
+    [SerializeField] private TextMeshProUGUI m_damageText;
+    [SerializeField] private TextMeshProUGUI m_attackSpeedText;
+    [SerializeField] private TextMeshProUGUI m_moveSpeedText;
+    [SerializeField] private TextMeshProUGUI m_GameOverText;
+    [SerializeField] private TextMeshProUGUI m_GameClearText;
+
 
     void Awake()
     {
@@ -53,6 +60,7 @@ public class GameManager : MonoBehaviour
         objMap3 = GameObject.Find("ParentsMap3").transform.GetChild(0).gameObject;
         objMap4 = GameObject.Find("ParentsMap4").transform.GetChild(0).gameObject;
         objMap5 = GameObject.Find("ParentsMap5").transform.GetChild(0).gameObject;
+
     }
 
     // Update is called once per frame
@@ -61,6 +69,8 @@ public class GameManager : MonoBehaviour
         SetText();
         changeRoomKeyDown();
     }
+
+    
 
     public void Setalpha(float _alpha)
     {
@@ -211,5 +221,17 @@ public class GameManager : MonoBehaviour
                 break;
         }
         
+    }
+
+    public void GameOver()
+    {
+        Color color = m_GameOverText.GetComponent<Color>();
+        color.a += Time.deltaTime;
+
+    }
+
+    public void GameClear()
+    { 
+    
     }
 }

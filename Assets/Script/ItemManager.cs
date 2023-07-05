@@ -24,6 +24,9 @@ public class ItemManager : MonoBehaviour
     List<Transform> m_listBookUi = new List<Transform>();
     private bool onBookUI = false;
 
+    [Space]
+    public Transform m_itemCreat;
+
     void Awake()
     {
         if (Instance == null)

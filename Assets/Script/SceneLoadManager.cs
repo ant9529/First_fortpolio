@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class SceneLoadManager : MonoBehaviour
 {
     public static SceneLoadManager Instance;
-    public bool m_inPotal;
+    public bool m_inpotal = false;
 
     private void Awake()
     {
@@ -27,22 +27,24 @@ public class SceneLoadManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        loadScene();
+        LoadScene();
     }
 
-    private void loadScene()
+    public void LoadScene()
     {
-        if (m_inPotal && Input.GetKeyDown(KeyCode.Space))
+        if (m_inpotal == true && Input.GetKeyDown(KeyCode.Space))
         {
-            m_inPotal = false;
-            SceneManager.LoadSceneAsync(CheckScene());
+            SceneManager.LoadSceneAsync(checkScene());
+            m_inpotal = false;
         }
     }
 
-    public int CheckScene()
+    private int checkScene()
     {
         int sceneNumber = SceneManager.GetActiveScene().buildIndex;
         return sceneNumber+1;
     }
+
+   
 
 }

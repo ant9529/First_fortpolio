@@ -139,15 +139,18 @@ public class Player : MonoBehaviour
             GameManager.Instance.SetBool(tag);
         }
 
-        if (collision.tag == "Potal")
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Potal"))
         {
-            SceneLoadManager.Instance.m_inPotal = true;
+            SceneLoadManager.Instance.m_inpotal = true;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        GameManager.Instance.SetBoolfalse();
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Door"))
+        {
+            GameManager.Instance.SetBoolfalse();
+        }
     }
 
     private void move()

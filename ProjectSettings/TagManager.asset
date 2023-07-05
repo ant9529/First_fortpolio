@@ -4,7 +4,6 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Potal
   - Enemy
   - Ground
   - Rock
@@ -29,7 +28,7 @@ TagManager:
   - Spike
   - Boss
   - EnemyBullet
-  - 
+  - Potal
   - 
   - 
   - 

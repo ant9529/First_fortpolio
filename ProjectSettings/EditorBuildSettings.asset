@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Main Stage.unity
     guid: 5ba8c20bd2521654ebb74ad38d10d34d
+  - enabled: 1
+    path: Assets/MainMenu.unity
+    guid: 29a191d88925619499c59e33f6bf6dd5
   m_configObjects: {}
