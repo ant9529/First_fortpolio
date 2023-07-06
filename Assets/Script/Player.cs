@@ -60,13 +60,9 @@ public class Player : MonoBehaviour
         attack();
         boom();
         invicibillity();
-        
-    }
+        checkHP();
 
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-       
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -102,7 +98,7 @@ public class Player : MonoBehaviour
         }
 
         if (collision.tag == "ItemBoom")
-        { 
+        {
             GameManager.Instance.m_haveBoom++;
             Destroy(collision.gameObject);
         }
@@ -127,21 +123,17 @@ public class Player : MonoBehaviour
             Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Boss"), LayerMask.NameToLayer("Player"), true);
             m_playerhp.Sethp(m_hp, m_maxhp);
         }
-    }
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Potal"))
+        {
+            SceneLoadManager.Instance.m_inpotal = true;
+        }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Door"))
         {
             Door door = collision.transform.GetComponent<Door>();
             eDoortag tag = door.GetDoorTag();
 
             GameManager.Instance.SetBool(tag);
-        }
-
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Potal"))
-        {
-            SceneLoadManager.Instance.m_inpotal = true;
         }
     }
 
@@ -253,7 +245,6 @@ public class Player : MonoBehaviour
             m_canAttack = false;
         }
     }
-
     private void boom()
     {
         if (Input.GetKeyDown(KeyCode.Q))
@@ -290,7 +281,6 @@ public class Player : MonoBehaviour
             }
         }
     }
-
     private void setalpha(float _alpha)
     {
         Color color = m_spr.color;
@@ -298,13 +288,19 @@ public class Player : MonoBehaviour
         m_spr.color = color;
     }
 
+    private void checkHP()
+    {
+        if (m_hp <= 0)
+        {
+            StartCoroutine(GameManager.Instance.FadeText());
+        }
+    }
     public Vector3 Getstatus()
     {
         Vector3 status = new Vector3(m_attackDamage, m_attackSpeed, m_moveSpeed);
 
         return status;
     }
-
     public void SetPosion(Vector3 _position)
     {
         transform.position = _position;

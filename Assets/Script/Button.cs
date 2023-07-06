@@ -25,7 +25,7 @@ public class Button : MonoBehaviour
 
     public void RetryScene()
     {
-        SceneManager.LoadSceneAsync(1);
+        SceneManager.LoadSceneAsync(0);
     }
 
     public void GameStart()

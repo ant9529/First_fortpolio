@@ -27,16 +27,20 @@ public class SceneLoadManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        LoadScene();
+        InputChangeScene();
     }
 
-    public void LoadScene()
+    private void InputChangeScene()
     {
         if (m_inpotal == true && Input.GetKeyDown(KeyCode.Space))
         {
-            SceneManager.LoadSceneAsync(checkScene());
-            m_inpotal = false;
+            LoadScene();
         }
+    }
+    public void LoadScene()
+    {
+        m_inpotal = false;
+        SceneManager.LoadSceneAsync(checkScene());
     }
 
     private int checkScene()

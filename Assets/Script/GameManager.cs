@@ -36,8 +36,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI m_damageText;
     [SerializeField] private TextMeshProUGUI m_attackSpeedText;
     [SerializeField] private TextMeshProUGUI m_moveSpeedText;
-    [SerializeField] private TextMeshProUGUI m_GameOverText;
-    [SerializeField] private TextMeshProUGUI m_GameClearText;
+    [SerializeField] private GameObject m_GameOverText;
+    [SerializeField] private GameObject m_GameClearText;
+    private CanvasGroup m_caGameOver;
+    private CanvasGroup m_caGameClear;
 
 
     void Awake()
@@ -60,6 +62,8 @@ public class GameManager : MonoBehaviour
         objMap3 = GameObject.Find("ParentsMap3").transform.GetChild(0).gameObject;
         objMap4 = GameObject.Find("ParentsMap4").transform.GetChild(0).gameObject;
         objMap5 = GameObject.Find("ParentsMap5").transform.GetChild(0).gameObject;
+        m_caGameOver = m_GameOverText.GetComponent<CanvasGroup>();
+        m_caGameClear = m_GameClearText.GetComponent<CanvasGroup>();
 
     }
 
@@ -68,9 +72,10 @@ public class GameManager : MonoBehaviour
     {
         SetText();
         changeRoomKeyDown();
+
     }
 
-    
+
 
     public void Setalpha(float _alpha)
     {
@@ -167,7 +172,7 @@ public class GameManager : MonoBehaviour
                     objMap4.SetActive(true);
                     m_nowRoom = 4;
                     m_player.SetPosion(m_inRightDoor);
-                m_bright = false;
+                    m_bright = false;
                 }
                 else if (m_bup == true)
                 {
@@ -175,7 +180,7 @@ public class GameManager : MonoBehaviour
                     objMap3.SetActive(true);
                     m_nowRoom = 3;
                     m_player.SetPosion(m_inUpDoor);
-                m_bup = false;
+                    m_bup = false;
                 }
                 break;
 
@@ -186,7 +191,7 @@ public class GameManager : MonoBehaviour
                     objMap1.SetActive(true);
                     m_nowRoom = 1;
                     m_player.SetPosion(m_inRightDoor);
-                m_bright = false;
+                    m_bright = false;
                 }
                 break;
 
@@ -216,22 +221,26 @@ public class GameManager : MonoBehaviour
                     objMap1.SetActive(true);
                     m_nowRoom = 1;
                     m_player.SetPosion(m_inLeftdoor);
-                m_bleft = false;
+                    m_bleft = false;
                 }
                 break;
         }
-        
+
     }
 
-    public void GameOver()
+    public IEnumerator FadeText()
     {
-        Color color = m_GameOverText.GetComponent<Color>();
-        color.a += Time.deltaTime;
-
+        for (float iNum = 0; iNum <= 1; iNum += 0.1f)
+        {
+            yield return new WaitForSeconds(1f);
+            m_caGameOver.alpha = iNum;
+        }
+            
     }
+
 
     public void GameClear()
-    { 
-    
+    {
+
     }
 }
