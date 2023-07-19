@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
         attack();
         boom();
         invicibillity();
-        checkHP();
+        
 
 
     }
@@ -105,7 +105,7 @@ public class Player : MonoBehaviour
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy") || collision.gameObject.layer == LayerMask.NameToLayer("Boss"))
         {
-            m_hp--;
+            checkHP();
             m_invicibillity = true;
             setalpha(0.2f);
             Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Player"), true);
@@ -115,7 +115,7 @@ public class Player : MonoBehaviour
         }
         else if (collision.gameObject.layer == LayerMask.NameToLayer("EnemyBullet"))
         {
-            m_hp--;
+            checkHP();
             m_invicibillity = true;
             setalpha(0.2f);
             Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Player"), true);
@@ -290,7 +290,12 @@ public class Player : MonoBehaviour
 
     private void checkHP()
     {
-        if (m_hp <= 0)
+
+        if (m_hp > 0)
+        {
+            m_hp--;
+        }
+        else if (m_hp <= 0)
         {
             StartCoroutine(GameManager.Instance.FadeText());
         }

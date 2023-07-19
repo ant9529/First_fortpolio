@@ -232,8 +232,9 @@ public class GameManager : MonoBehaviour
     {
         for (float iNum = 0; iNum <= 1; iNum += 0.1f)
         {
-            yield return new WaitForSeconds(1f);
+            Debug.Log(iNum);
             m_caGameOver.alpha = iNum;
+            yield return new WaitForSeconds(0.2f);
         }
             
     }
